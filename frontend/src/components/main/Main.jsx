@@ -6,6 +6,9 @@ import Dialog from '@mui/material/Dialog';
 import { Close } from "@mui/icons-material";
 import { useGetProductByNameQuery } from "../../Redux/product";
 import ProductDetails from "./ProductDetails";
+import { AnimatePresence, motion } from "framer-motion";
+
+
 
 export default function Main() {
     const theme = useTheme()
@@ -113,62 +116,72 @@ export default function Main() {
 
             {/* Product Cards List */}
             <Stack direction={'row'} flexWrap={'wrap'} sx={{ justifyContent: { xs: 'center', sm: 'center', md: 'space-between' } }}>
-                {data.data.map((product) => {
-                    return (
-                        <Card key={product.id} sx={{
-                            maxWidth: 345, mt: 6, ":hover .MuiCardMedia-root": { scale: '1.1', rotate: '1deg' },
-                            '.MuiCardMedia-root': { transition: 'all 0.3s' }
-                        }}>
-                            <CardMedia
-                                sx={{ height: 260 }}
-                                image={`http://localhost:1337${product.productImg[0].formats.small.url}`}
 
-                                title="green iguana"
-                            />
+                <AnimatePresence>
+                    {data.data.map((product) => {
+                        return (
+                            <Card component={motion.section}
+                                layout
+                                initial={{ transform: 'scale(0)' }}
+                                animate={{ transform: 'scale(1)' }}
+                                transition={{ duration: 1.4, type: "spring", ease: "linear" }}
+                                key={product.id} sx={{
+                                    maxWidth: 345, mt: 6, ":hover .MuiCardMedia-root": { scale: '1.1', rotate: '1deg' },
+                                    '.MuiCardMedia-root': { transition: 'all 0.3s' }
+                                }}>
+                                <CardMedia
+                                    sx={{ height: 320 }}
+                                    image={`${import.meta.env.VITE_BASE_URL}${product.productImg[0].formats.small.url}`}
 
-                            <CardContent>
+                                    title="green iguana"
+                                />
 
-                                <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
-                                    <Typography sx={{
-                                        color: theme.palette.text.secondary,
-                                        fontWeight: 'bold'
-                                    }}
-                                        gutterBottom variant="h5" component="div"
+                                <CardContent>
+
+                                    <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mt={1}>
+                                        <Typography sx={{
+                                            color: theme.palette.text.secondary,
+                                            fontWeight: 'bold'
+                                        }}
+                                            gutterBottom variant="h5" component="div"
+                                        >
+                                            {product.productTitle}
+                                        </Typography>
+
+                                        <Typography sx={{ color: theme.palette.text.secondary, fontWeight: 'bold' }}>
+                                            {`$ ${product.productPrice}`}
+                                        </Typography>
+
+                                    </Stack>
+
+                                    <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
+                                        {product.productDescription}
+                                    </Typography>
+                                </CardContent>
+
+                                <CardActions sx={{ justifyContent: 'space-between', mb: 1 }}>
+
+                                    <Button
+                                        onClick={() => {
+                                            handleClickOpen()
+                                            setClickedProduct(product)
+                                        }}
+                                        sx={{ fontWeight: 'bold' }} size="small"
                                     >
-                                        {product.productTitle}
-                                    </Typography>
+                                        <AddShoppingCartOutlinedIcon />
+                                        Add To Cart
+                                    </Button>
 
-                                    <Typography sx={{ color: theme.palette.text.secondary, fontWeight: 'bold' }}>
-                                        {`$ ${product.productPrice}`}
-                                    </Typography>
+                                    <Rating name="read-only" value={product.productRating} precision={0.5} readOnly />
 
-                                </Stack>
+                                </CardActions>
 
-                                <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-                                    {product.productDescription}
-                                </Typography>
-                            </CardContent>
+                            </Card>
+                        )
+                    })}
+                </AnimatePresence>
 
-                            <CardActions sx={{ justifyContent: 'space-between', mb: 1 }}>
 
-                                <Button
-                                    onClick={() => {
-                                        handleClickOpen()
-                                        setClickedProduct(product)
-                                    }}
-                                    sx={{ fontWeight: 'bold' }} size="small"
-                                >
-                                    <AddShoppingCartOutlinedIcon />
-                                    Add To Cart
-                                </Button>
-
-                                <Rating name="read-only" value={product.productRating} precision={0.5} readOnly />
-
-                            </CardActions>
-
-                        </Card>
-                    )
-                })}
             </Stack>
 
             {/* Dialog For Product Details */}
