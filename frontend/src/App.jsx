@@ -16,17 +16,6 @@ function App() {
         <CssBaseline />
         <div className="App">
 
-          {/*   <motion.div className="border"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 5 }}
-          >
-            AHmad Khaled
-          </motion.div> */}
-
-
-
-
           <Header1 />
           <Header2 />
           <Header3 />

@@ -17,20 +17,20 @@
   "dependencies": {
     "@strapi/plugin-cloud": "5.16.1",
     "@strapi/plugin-users-permissions": "5.16.1",
+    "@strapi/provider-upload-cloudinary": "^5.17.0",
     "@strapi/strapi": "5.16.1",
-    "better-sqlite3": "11.3.0",
+    "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "d3a45302-4c26-4844-a584-23f4813edd4e",
-    "installId": "572cefa1688916d27e759b424f154338386c14778324d58c68ef63382df19f63"
+    "uuid": "fe43266d-5ff9-4871-b9c8-ba625b782c06",
+    "installId": "514566ea6fa6d7ee076c867e3561b5f918e49b3b24c2c46da392f6e56950438d"
   }
 }
